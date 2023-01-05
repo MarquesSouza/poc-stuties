@@ -1,0 +1,14 @@
+version: '3.7'
+services:
+  php:
+    build: 
+      context: .
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    ports:
+      - 8123:8123
+    volumes:
+      - ./:/app
+    #  - ./90-xdebug.ini:/usr/local/etc/php/conf.d/
+    working_dir: /app
+    entrypoint: "php -S 0.0.0.0:8123"
