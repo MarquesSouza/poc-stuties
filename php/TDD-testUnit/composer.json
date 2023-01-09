@@ -9,25 +9,25 @@
     },
     "scripts": {
         "run-test":[
-            "vendor/bin/phpunit tests --colors --testdox"
+            "clear && vendor/bin/phpunit tests --colors --testdox"
         ],
         "run-test-rand":[
-            "vendor/bin/phpunit --testdox --order-by=random"
+            "clear && vendor/bin/phpunit --testdox --colors --order-by=random"
         ],
         "run-test-unit":[
-            "vendor/bin/phpunit --testsuite='unit' --testdox"
+            "clear && vendor/bin/phpunit --testsuite='unit' --testdox --colors"
         ],
         "run-test-feat":[
-            "vendor/bin/phpunit --testsuite='feature' --testdox"
+            "clear && vendor/bin/phpunit --testsuite='feature' --testdox --colors"
         ],
         "run-test-c-html":[
-            "@php -dxdebug.mode=coverage vendor/bin/phpunit --coverage-html='./.tmp/'"
+            "@php -dxdebug.mode=coverage vendor/bin/phpunit --coverage-html='./.tmp/' --colors"
         ],
         "run-test-c-xml":[
-            "@php -dxdebug.mode=coverage vendor/bin/phpunit --coverage-clover='./.tmp/coverage.xml'"
+            "@php -dxdebug.mode=coverage vendor/bin/phpunit --coverage-clover='./.tmp/coverage.xml' --colors"
         ],
         "run-test-filter":[
-            "clear && vendor/bin/phpunit --testdox --filter"
+            "clear && vendor/bin/phpunit --testdox --colors --filter"
         ]
     }
 }
