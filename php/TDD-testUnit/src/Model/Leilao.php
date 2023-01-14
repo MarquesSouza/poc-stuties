@@ -21,7 +21,7 @@ class Leilao
     public function recebeLance(Lance $lance)
     {
         if ($this->estaFinalizado()) {
-            throw new \DomainException('Leilão não pode receber lances apos estar finalizado');
+            throw new \DomainException("Leilão não pode receber lances apos estar finalizado");
         }
         if (!empty($this->lances) && $this->ehDoUltimoUsuario($lance)) {
             throw new \DomainException('Usuário não pode propor 2 lances seguidos');
