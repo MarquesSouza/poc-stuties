@@ -25,7 +25,7 @@ class LeilaoTest extends TestCase
     public function testLeilaoPegarUltimoLance(int $qtdLances, Leilao $leilao)
     {
         static::assertCount($qtdLances, $leilao->getLances());
-        static::assertEquals($leilao->getUltimoLance()->getValor(), $leilao->getLances()[array_key_last($leilao->getLances())]->getValor());
+        static::assertEquals($leilao->getUltimoLance()->getValor(), $leilao->getUltimoLance()->getValor());
     }
     public function testLeilaoNaoDeveReceberLancesRepetidos()
     {
@@ -36,7 +36,7 @@ class LeilaoTest extends TestCase
         $leilao->recebeLance(new Lance($ana, 1500));
 
         static::assertCount(1, $leilao->getLances());
-        static::assertEquals(1000, $leilao->getLances()[0]->getValor());
+        static::assertEquals(1000, $leilao->getUltimoLance()->getValor());
     }
     public function testLeilaoNaoDeveAceitarMaisDe5LancesPorUsuario()
     {
@@ -57,7 +57,7 @@ class LeilaoTest extends TestCase
         $leilao->recebeLance(new Lance($joao, 6000));
 
         static::assertCount(10, $leilao->getLances());
-        static::assertEquals(5500, $leilao->getLances()[array_key_last($leilao->getLances())]->getValor());
+        static::assertEquals(5500,$leilao->getUltimoLance()->getValor());
     }
     public function geraLances()
     {
