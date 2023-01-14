@@ -7,3 +7,11 @@ docker-compose up -d
 ```terminal
 docker exec -it phptdd /bin/bash
 ```
+## Ao acessar o container a primeira vez deve rodar o comando para baixar todas as dependências do phpUnit conforme comando abaixo
+```terminal
+composer install
+```
+## Ao acessar o container para rodar os test basta executar o comando abaixo
+```terminal
+composer run-test
+```
