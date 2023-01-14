@@ -25,21 +25,32 @@ class LeilaoTest extends TestCase
     public function testLeilaoPegarUltimoLance(int $qtdLances, Leilao $leilao)
     {
         static::assertCount($qtdLances, $leilao->getLances());
-        static::assertEquals($leilao->getUltimoLance()->getValor(), $leilao->getUltimoLance()->getValor());
+        static::assertEquals($leilao->getUltimoLance()->getValor(), $leilao->getLances()[array_key_last($leilao->getLances())]->getValor());
+    }
+    public function testLeilaoPegarUltimoLanceVazio()
+    {
+        $this->expectException(\DomainException::class);
+        $this->expectExceptionMessage('Leilão vazio!');
+        $leilao = new Leilao('Variante');
+        static::assertCount(0, $leilao->getLances());
+        static::assertEquals($leilao->getUltimoLance(), $leilao->getLances()[array_key_last($leilao->getLances())]);
     }
     public function testLeilaoNaoDeveReceberLancesRepetidos()
     {
+        $this->expectException(\DomainException::class);
+        $this->expectExceptionMessage('Usuário não pode propor 2 lances seguidos');
+
         $leilao = new Leilao('Variante');
         $ana = new Usuario('Ana');
 
         $leilao->recebeLance(new Lance($ana, 1000));
         $leilao->recebeLance(new Lance($ana, 1500));
-
-        static::assertCount(1, $leilao->getLances());
-        static::assertEquals(1000, $leilao->getUltimoLance()->getValor());
     }
     public function testLeilaoNaoDeveAceitarMaisDe5LancesPorUsuario()
     {
+        $this->expectException(\DomainException::class);
+        $this->expectExceptionMessage('Usuário não propor mais de 5 lances por leilão');
+
         $leilao = new Leilao('Brasília Amarela');
         $joao = new Usuario('João');
         $maria = new Usuario('Maria');
@@ -55,9 +66,6 @@ class LeilaoTest extends TestCase
         $leilao->recebeLance(new Lance($joao, 5000));
         $leilao->recebeLance(new Lance($maria, 5500));
         $leilao->recebeLance(new Lance($joao, 6000));
-
-        static::assertCount(10, $leilao->getLances());
-        static::assertEquals(5500,$leilao->getUltimoLance()->getValor());
     }
     public function geraLances()
     {

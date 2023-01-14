@@ -12,7 +12,7 @@ class AvaliadorTest extends TestCase
 {
     private $leiloeiro;
 
-    protected function setUp():void
+    protected function setUp(): void
     {
         $this->leiloeiro = new Avaliador();
     }
@@ -66,6 +66,24 @@ class AvaliadorTest extends TestCase
         static::assertEquals(1500, $maiores[2]->getValor());
     }
 
+    public function testLeilaoVazioNaoPodeSerAvaliado()
+    {
+        $this->expectException(\DomainException::class);
+        $this->expectExceptionMessage('Não é possível avaliar leilão vazio');
+        $leilao = new Leilao('Fusca Azul');
+        $this->leiloeiro->avalia($leilao);
+    }
+    public function testLeilaoFinalizadoNaoPodeSerAvaliado()
+    {
+        $this->expectException(\DomainException::class);
+        $this->expectExceptionMessage('Leilão já finalizado');
+    
+        $leilao = new Leilao('Fiat 147 0KM');
+        $leilao->recebeLance(new Lance(new Usuario('Teste'), 2000));
+        $leilao->finaliza();
+    
+        $this->leiloeiro->avalia($leilao);
+    }
     public function leilaoEmOrdemCrescente()
     {
         $leilao = new Leilao('Ferrari');
@@ -81,7 +99,7 @@ class AvaliadorTest extends TestCase
         $leilao->recebeLance(new Lance($maria, 2500));
 
         return [
-            'Leilao em Ordem Crescente'=>[$leilao]
+            'Leilao em Ordem Crescente' => [$leilao]
         ];
     }
     public function leilaoEmOrdemDecrescente()
@@ -99,7 +117,7 @@ class AvaliadorTest extends TestCase
         $leilao->recebeLance(new Lance($joao, 1000));
 
         return [
-            'Leilao em Ordem Decrescente'=>[$leilao]
+            'Leilao em Ordem Decrescente' => [$leilao]
         ];
     }
     public function leilaoEmOrdemAleatoria()
@@ -117,7 +135,7 @@ class AvaliadorTest extends TestCase
         $leilao->recebeLance(new Lance($jorge, 1700));
 
         return [
-            'Leilao em Ordem Aleatoria'=>[$leilao]
+            'Leilao em Ordem Aleatoria' => [$leilao]
         ];
     }
 }
