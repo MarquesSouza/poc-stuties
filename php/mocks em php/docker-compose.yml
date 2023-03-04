@@ -1,0 +1,11 @@
+version: '3.7'
+services:
+  php:
+    image: 'composer'
+    container_name: 'phpmocks'
+    ports:
+      - 8123:8123
+    volumes:
+      - ./:/app
+    working_dir: /app
+    entrypoint: "php -S 0.0.0.0:8123"
