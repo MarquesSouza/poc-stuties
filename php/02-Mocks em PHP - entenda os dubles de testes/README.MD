@@ -1,4 +1,4 @@
-# PHP e TDD  com PHPUNIT ALURA
+# Mocks em PHP: entenda os dublês de testes ALURA
 ## Comando para subir o container
 ```terminal
 docker-compose up -d

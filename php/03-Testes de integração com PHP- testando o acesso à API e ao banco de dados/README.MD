@@ -1,4 +1,4 @@
-# PHP e TDD  com PHPUNIT ALURA
+# Testes de integração com PHP: testando o acesso à API e ao banco de dados ALURA
 ## Comando para subir o container
 ```terminal
 docker-compose up -d
